@@ -6,6 +6,7 @@ class Auth extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         $this->load->language('auth', 'id');
+        $this->load->library("HereMap", "heremap");
     }    
 
 	public function index()
@@ -99,6 +100,15 @@ class Auth extends CI_Controller {
 
             $post['verification_code'] = rand(1000, 9999);
             $post['verification_sent_time'] = date('Y-m-d H:i:s');
+
+            $province = $this->main->get('provincies', ['id' => $post['province']]);
+            $city = $this->main->get('cities', ['id' => $post['city']]);
+            $district = $this->main->get('districts', ['id' => $post['district']]);
+
+            $full_address = $post['address'] . ' ' . $district->name . ', ' . $city->type . ' ' . $city->name . ', ' . $province->name . ', ' . $post['postcode'];
+            $location = $this->heremap->geocode($full_address);
+            $post['latitude'] = $location['position']['lat'];
+            $post['longitude'] = $location['position']['lng'];
             
             $post['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
             $post['courier'] = json_encode($post['couriers']);
@@ -128,7 +138,7 @@ class Auth extends CI_Controller {
                 'message' => $message
             ];
 
-            $this->email_custom->verification_email($send_email);
+            // $this->email_custom->verification_email($send_email);
             $this->session->set_flashdata('message', 'Registrasi berhasil. Silahkan cek email untuk melihat kode verifikasi akun anda!');
 			redirect(base_url('auth'));
         }
