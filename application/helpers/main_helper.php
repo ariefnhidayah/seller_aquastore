@@ -34,7 +34,7 @@ function generate_url($text)
 
   $random = rand(1000,999);
 
-  $text .= '-' . $random;
+  $text .= '-' . time();
 
   if (empty($text)) {
     return 'n-a';

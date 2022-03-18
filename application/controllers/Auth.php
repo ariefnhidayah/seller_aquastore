@@ -115,6 +115,7 @@ class Auth extends CI_Controller {
             $post['province_id'] = $post['province'];
             $post['city_id'] = $post['city'];
             $post['district_id'] = $post['district'];
+            $post['seo_url'] = generate_url($post['store_name']);
             unset($post['couriers']);
             unset($post['province']);
             unset($post['city']);
