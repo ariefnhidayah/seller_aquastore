@@ -10,7 +10,7 @@ class Product extends CI_Controller {
         $this->seller = $this->session->userdata('seller');
         $this->load->language('product', 'id');
         $this->load->model('product_model', 'product');
-        $this->load->library('my_encrypt');
+        // $this->load->library('my_encrypt');
         $this->load->library('api');
         if (!$this->seller) {
             redirect(base_url('auth'));
