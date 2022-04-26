@@ -26,7 +26,7 @@
 
       <li class="nav-item <?= $menu == 'product' ? 'active' : '' ?>">
         <a class="nav-link" href="<?= base_url('product') ?>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <i class="fas fa-fw fa-file"></i>
           <span><?= lang('product') ?></span></a>
       </li>
 
