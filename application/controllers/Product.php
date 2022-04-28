@@ -108,9 +108,10 @@ class Product extends CI_Controller {
             $post['category_id'] = $post['category'];
             $post['seller_id'] = $this->seller->id;
             unset($post['category']);
+            $district = $this->main->get('districts', ['id' => $this->seller->district_id]);
 
             do {
-                $post['seo_url'] = generate_url($post['name']);
+                $post['seo_url'] = generate_url($post['name'] . ' ' . $district->name);
             } while($this->main->get('products', ['seo_url' => $post['seo_url']]));
             
             $images = [];
